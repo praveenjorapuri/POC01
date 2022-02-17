@@ -1,26 +1,12 @@
-# PHP
-# Test and package your PHP project.
-# Add steps that run tests, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/php
-
-trigger:
-- main
-
-pool:
-  vmImage: ubuntu-latest
-
+# at the top of your YAML file 
+# set some variables that you'll need when you deploy
 variables:
-  phpVersion: 7.2
-
-steps:
-- script: |
-    sudo update-alternatives --set php /usr/bin/php$(phpVersion)
-    sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
-    sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
-    sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
-    sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
-    php -version
-  displayName: 'Use PHP version $(phpVersion)'
-
-- script: composer install --no-interaction --prefer-dist
-  displayName: 'composer install'
+  # the name of the service connection that you created above
+  serviceConnectionToAzure: POC00001
+  # the name of your web app here is the same one you used above
+  # when you created the web app using the Azure CLI
+  appName: myapp
+  # the name of your functionApp is what you provided as
+  # stagingDirectory in pom.xml
+  functionAppName: 'javafunctions'
+# ...
